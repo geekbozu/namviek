@@ -30,12 +30,13 @@ run addgroup namviek && \
     adduser --disabled-login -ingroup namviek namviek
 
 workdir /app
+
+#grab previously installed modules without caches. 
 COPY --from=builder /app/node_modules ./node_modules
 run chown -R namviek:namviek /app 
 
 user namviek
 
-#grab previously installed modules without caches. 
 
 # TODO eventually use tini so it captures signals properly. 
 entrypoint ["yarn","frontend"]
